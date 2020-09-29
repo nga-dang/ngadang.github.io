@@ -1,0 +1,36 @@
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.Assert;
+import org.testng.annotations.Test;
+
+
+public class Topic_01_Check_Environment {
+@Test
+public void login() {
+	System.setProperty("webdriver.chrome.driver","F:\\Webdriver\\chromedriver_win32");
+	WebDriver driver= new ChromeDriver();
+		driver.get("http://192.168.31.202:8292/login/");
+	
+		//find username
+		WebElement txtbx_username= driver.findElement(By.name("username"));
+		txtbx_username.sendKeys("username");
+		
+		// find password
+		driver.findElement(By.name("password")).sendKeys("password");
+		
+		driver.findElement(By.name("submit")).click();
+		driver.findElement(By.xpath("//input[@value='' and @type='submit']")).click();
+		String expected_title="Homepage";
+		String actual_title= driver.getTitle();
+		
+////		if(expected_title.equals(actual_title))
+////		{
+////			System.out.println("login success");
+////		}else
+////		{
+////			System.out.println("login fail");
+////		}
+		Assert.assertEquals(expected_title, actual_title);
+	}
